@@ -73,6 +73,12 @@ export async function executeRequest(params: ExecuteRequestParams): Promise<Exec
   const hasBody = methodHasBody(endpoint.method)
   const requestBody = hasBody ? (bodyOverride ?? endpoint.requestBody) : undefined
 
+  // Most JSON APIs (jsonplaceholder included) only parse the body if told it's
+  // JSON — without this a POST/PUT/PATCH silently sends an unparsed body.
+  if (requestBody && !Object.keys(mergedHeaders).some((key) => key.toLowerCase() === 'content-type')) {
+    mergedHeaders['Content-Type'] = 'application/json'
+  }
+
   const controller = new AbortController()
   const timeoutHandle = setTimeout(() => controller.abort(), timeoutMs)
 

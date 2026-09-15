@@ -67,4 +67,27 @@ describe('buildOutboundPayload', () => {
 
     expect(buildOutboundPayload(fields, mappings, {})).toEqual({ notes: '' })
   })
+
+  it('skips a mapping whose path is empty or mid-typed instead of throwing (live-preview safety)', () => {
+    const fields: OutboundFormField[] = [
+      { id: 'a', order: 0, label: 'A', fieldType: 'Text', required: false },
+      { id: 'b', order: 1, label: 'B', fieldType: 'Text', required: false },
+    ]
+    const mappings: OutboundMappingEntry[] = [
+      { formFieldId: 'a', targetJsonPath: '', transform: { type: 'none' } },
+      { formFieldId: 'a', targetJsonPath: '$', transform: { type: 'none' } },
+      { formFieldId: 'b', targetJsonPath: '$.b', transform: { type: 'none' } },
+    ]
+
+    const payload = buildOutboundPayload(fields, mappings, { a: 'x', b: 'y' })
+
+    expect(payload).toEqual({ b: 'y' })
+  })
+
+  it('skips a mapping whose path contains a [*] wildcard (no single write target)', () => {
+    const fields: OutboundFormField[] = [{ id: 'a', order: 0, label: 'A', fieldType: 'Text', required: false }]
+    const mappings: OutboundMappingEntry[] = [{ formFieldId: 'a', targetJsonPath: '$.items[*].id', transform: { type: 'none' } }]
+
+    expect(buildOutboundPayload(fields, mappings, { a: 'x' })).toEqual({})
+  })
 })

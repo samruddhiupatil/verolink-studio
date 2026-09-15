@@ -120,6 +120,52 @@ describe('executeRequest', () => {
     expect(result.requestHeaders.Authorization).toBe('Custom explicit-value')
   })
 
+  it('auto-sets Content-Type: application/json when a body is sent and no Content-Type is configured', async () => {
+    mockFetchResponse({}, { status: 201 })
+
+    const result = await executeRequest({
+      endpoint: { method: 'POST', path: '/posts', headers: [], queryParams: [] },
+      baseUrl: 'https://jsonplaceholder.typicode.com',
+      variableValues: {},
+      auth: NO_AUTH,
+      bodyOverride: '{"title":"Hi"}',
+    })
+
+    expect(result.requestHeaders['Content-Type']).toBe('application/json')
+  })
+
+  it('does not override an explicitly configured Content-Type header', async () => {
+    mockFetchResponse({}, { status: 201 })
+
+    const result = await executeRequest({
+      endpoint: {
+        method: 'POST',
+        path: '/posts',
+        headers: [{ id: 'h1', key: 'Content-Type', value: 'application/x-www-form-urlencoded' }],
+        queryParams: [],
+      },
+      baseUrl: 'https://jsonplaceholder.typicode.com',
+      variableValues: {},
+      auth: NO_AUTH,
+      bodyOverride: 'title=Hi',
+    })
+
+    expect(result.requestHeaders['Content-Type']).toBe('application/x-www-form-urlencoded')
+  })
+
+  it('does not add a Content-Type header when there is no body (e.g. GET)', async () => {
+    mockFetchResponse({}, { status: 200 })
+
+    const result = await executeRequest({
+      endpoint: { method: 'GET', path: '/users', headers: [], queryParams: [] },
+      baseUrl: 'https://jsonplaceholder.typicode.com',
+      variableValues: {},
+      auth: NO_AUTH,
+    })
+
+    expect(result.requestHeaders['Content-Type']).toBeUndefined()
+  })
+
   it('only includes a request body for methods that support one', async () => {
     mockFetchResponse({}, { status: 201 })
 

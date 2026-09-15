@@ -1,5 +1,5 @@
 import type { OutboundFieldType, OutboundFormField, OutboundMappingEntry } from '../../domain/outbound.types'
-import { setByPath } from '../jsonpath/jsonPath'
+import { parseJsonPath, setByPath } from '../jsonpath/jsonPath'
 import { applyTransform } from '../transforms/transforms'
 
 /**
@@ -33,6 +33,13 @@ export function buildOutboundPayload(
   let payload: Record<string, unknown> = {}
 
   for (const mapping of mappings) {
+    // Skip mappings whose path is empty, still mid-typed (e.g. just "$" with
+    // no segments yet), or contains a [*] wildcard (setByPath has no single
+    // write target for one). Part B's live preview re-renders on every
+    // keystroke, so an incomplete/invalid path is a normal transient state.
+    const segments = parseJsonPath(mapping.targetJsonPath)
+    if (segments.length === 0 || segments.some((segment) => segment.type === 'wildcard')) continue
+
     const field = fieldsById.get(mapping.formFieldId)
     const rawValue = values[mapping.formFieldId] ?? ''
     const transformed = applyTransform(rawValue, mapping.transform)
