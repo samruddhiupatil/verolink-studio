@@ -83,9 +83,9 @@ describe('buildAuthInjection', () => {
     const auth: AuthConfig = {
       type: 'customHeaders',
       headers: [
-        { id: '1', name: 'X-Trace-Id', value: 'trace-1' },
-        { id: '2', name: '', value: 'ignored' },
-        { id: '3', name: 'X-Env', value: 'sandbox' },
+        { id: '1', key: 'X-Trace-Id', value: 'trace-1' },
+        { id: '2', key: '', value: 'ignored' },
+        { id: '3', key: 'X-Env', value: 'sandbox' },
       ],
     }
     const result = buildAuthInjection(auth)

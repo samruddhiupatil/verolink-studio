@@ -1,0 +1,60 @@
+.tree {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+.toggle {
+  background: none;
+  border: none;
+  padding: 0 4px 0 0;
+  color: var(--color-text-faint);
+  font-size: 10px;
+  vertical-align: middle;
+}
+
+.bracket {
+  color: var(--color-text-faint);
+}
+
+.indent {
+  margin-left: 16px;
+  border-left: 1px dashed var(--color-border);
+  padding-left: 8px;
+}
+
+.key {
+  color: var(--color-accent);
+}
+
+.string {
+  color: var(--color-success);
+}
+
+.number {
+  color: #a15ccf;
+}
+
+.boolean {
+  color: var(--color-warning);
+}
+
+.null {
+  color: var(--color-text-faint);
+  font-style: italic;
+}
+
+.leafRow {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.selectable {
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 0 2px;
+}
+.selectable:hover {
+  background: var(--color-accent-bg);
+}

@@ -1,6 +1,7 @@
+/** Structurally identical to endpoint.types.ts's KeyValueRow, so both share one row editor component. */
 export interface CustomHeaderRow {
   id: string
-  name: string
+  key: string
   value: string
 }
 

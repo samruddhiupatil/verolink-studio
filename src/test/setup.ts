@@ -1,3 +1,4 @@
+import { cleanup } from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import { afterEach, beforeEach, vi } from 'vitest'
 
@@ -10,6 +11,7 @@ beforeEach(() => {
 })
 
 afterEach(() => {
+  cleanup()
   vi.unstubAllGlobals()
   vi.restoreAllMocks()
   vi.useRealTimers()

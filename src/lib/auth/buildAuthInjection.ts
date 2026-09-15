@@ -92,9 +92,9 @@ export function buildAuthInjection(auth: AuthConfig): AuthInjectionResult {
       const headers: Record<string, string> = {}
       const redactedPreview: AuthPreviewRow[] = []
       for (const row of auth.headers) {
-        if (!row.name) continue
-        headers[row.name] = row.value
-        redactedPreview.push({ label: `Header: ${row.name}`, value: redactSecret(row.value) })
+        if (!row.key) continue
+        headers[row.key] = row.value
+        redactedPreview.push({ label: `Header: ${row.key}`, value: redactSecret(row.value) })
       }
       return { headers, queryParams: {}, redactedPreview }
     }
