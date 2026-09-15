@@ -38,3 +38,20 @@ export interface EndpointDefinition {
 export function methodHasBody(method: HttpMethod): boolean {
   return method === 'POST' || method === 'PUT' || method === 'PATCH'
 }
+
+export function createBlankEndpoint(id: string): EndpointDefinition {
+  const now = new Date().toISOString()
+  return {
+    id,
+    label: '',
+    method: 'GET',
+    path: '',
+    description: '',
+    headers: [],
+    queryParams: [],
+    requestBody: '',
+    responseSchema: [],
+    createdAt: now,
+    updatedAt: now,
+  }
+}
