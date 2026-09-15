@@ -49,3 +49,21 @@ export type AuthType = AuthConfig['type']
 export function createDefaultAuthConfig(): AuthConfig {
   return { type: 'none' }
 }
+
+/** Builds a fresh, empty config for the given auth type — used when the admin switches type. */
+export function createAuthConfigForType(type: AuthType): AuthConfig {
+  switch (type) {
+    case 'none':
+      return { type: 'none' }
+    case 'apiKey':
+      return { type: 'apiKey', headerName: '', keyValue: '', placement: 'header' }
+    case 'oauth2':
+      return { type: 'oauth2', tokenUrl: '', clientId: '', clientSecret: '', scope: '', grantType: 'client_credentials' }
+    case 'basic':
+      return { type: 'basic', username: '', password: '' }
+    case 'bearer':
+      return { type: 'bearer', token: '' }
+    case 'customHeaders':
+      return { type: 'customHeaders', headers: [] }
+  }
+}
