@@ -1,0 +1,67 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 920px;
+}
+
+.empty {
+  padding: var(--space-5);
+  text-align: center;
+  color: var(--color-text-faint);
+  font-size: 13px;
+}
+
+.mappingList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.mappingRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.3fr auto;
+  gap: var(--space-3);
+  align-items: start;
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.diffPreview {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: var(--space-4);
+  font-size: 12px;
+  padding-top: var(--space-2);
+  border-top: 1px dashed var(--color-border);
+}
+
+.diffColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.diffLabel {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-text-faint);
+}
+
+.diffValue {
+  font-family: var(--font-mono);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+@media (max-width: 720px) {
+  .mappingRow {
+    grid-template-columns: 1fr;
+  }
+}
