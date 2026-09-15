@@ -35,7 +35,10 @@ export function AppShell() {
           <div className={styles.topBarLeft}>
             <span className={styles.connectorName}>{state.connector.name || 'Untitled Connector'}</span>
             {/* Persistent environment badge — visible on every section, per spec. */}
-            <Badge tone={state.connector.environment === 'Production' ? 'production' : 'sandbox'}>
+            <Badge
+              tone={state.connector.environment === 'Production' ? 'production' : 'sandbox'}
+              data-testid="header-environment-badge"
+            >
               {state.connector.environment}
             </Badge>
           </div>

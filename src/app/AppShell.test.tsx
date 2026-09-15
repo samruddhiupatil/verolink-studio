@@ -37,7 +37,7 @@ describe('AppShell', () => {
 
   it('shows the Sandbox environment badge by default, persistently in the header', () => {
     renderApp()
-    expect(screen.getByText('Sandbox')).toBeInTheDocument()
+    expect(screen.getByTestId('header-environment-badge')).toHaveTextContent('Sandbox')
   })
 
   it('the environment badge stays visible when navigating between sections', async () => {
@@ -45,7 +45,7 @@ describe('AppShell', () => {
     renderApp()
 
     await user.click(screen.getByRole('link', { name: 'Endpoint Library' }))
-    expect(screen.getByText('Sandbox')).toBeInTheDocument()
+    expect(screen.getByTestId('header-environment-badge')).toHaveTextContent('Sandbox')
   })
 
   it('the Admin/User view toggle defaults to Admin and can switch to User', async () => {

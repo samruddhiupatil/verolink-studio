@@ -1,0 +1,49 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 760px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.gridFull {
+  grid-column: 1 / -1;
+}
+
+.customSystemRow {
+  margin-top: var(--space-2);
+}
+
+.healthRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.healthResult {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 13px;
+}
+
+.healthLatency {
+  color: var(--color-text-muted);
+}
+
+.healthTimestamp {
+  font-size: 11px;
+  color: var(--color-text-faint);
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
